@@ -1,6 +1,8 @@
 {
   "name": "talkie-sync",
-  "version": "0.1.1",
+  "version": "0.1.4",
+  "homepage": "https://talkie.oskite.com",
+  "repository": "github:talkie-sync/client-ts",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

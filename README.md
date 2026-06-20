@@ -1,6 +1,6 @@
 # Talkie Sync Client
 
-TypeScript client library for Talkie Sync API.
+TypeScript client library for the [Talkie Sync](https://talkie.oskite.com) cloud API.
 
 ## Install
 
@@ -10,11 +10,13 @@ npm install talkie-sync
 
 ## Usage
 
+Create a project at [talkie.oskite.com](https://talkie.oskite.com) to get an API key, then:
+
 ```typescript
 import { TalkieClient } from "talkie-sync";
 
 const client = new TalkieClient({
-  baseUrl: "https://your-server.com",
+  baseUrl: "https://talkie.oskite.com",
   apiKey: "your-api-key",
 });
 
