@@ -1,3 +1,4 @@
+import { encryptPayload, decryptPayload } from "./crypto";
 import type {
   CreatePairResponse,
   ClaimPairRequest,
@@ -72,6 +73,11 @@ export class TalkieClient {
     return this.request("POST", `/api/pair/${cleanChannelId}/messages`, { payload } as PushMessageRequest);
   }
 
+  async pushEncryptedMessage(channelId: string, payload: string, sessionId: string): Promise<{ id: string }> {
+    const encrypted = await encryptPayload(payload, sessionId);
+    return this.pushMessage(channelId, encrypted);
+  }
+
   async pollMessages(channelId: string, after = 0, timeout?: number): Promise<MessageListResponse> {
     const cleanChannelId = channelId.split(":")[0];
     const params = new URLSearchParams({ after: String(after) });
@@ -82,6 +88,10 @@ export class TalkieClient {
   async listMessages(channelId: string, after = 0): Promise<MessageListResponse> {
     const cleanChannelId = channelId.split(":")[0];
     return this.request("GET", `/api/pair/${cleanChannelId}/messages?after=${after}`);
+  }
+
+  async decryptMessagePayload(message: { payload: string }, sessionId: string): Promise<string> {
+    return decryptPayload(message.payload, sessionId);
   }
 
   async getUser(): Promise<UserMe> {
